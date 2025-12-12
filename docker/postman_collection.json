@@ -1,0 +1,57 @@
+// File: postman_collection.json
+{
+  "info": {
+    "name": "Social Media API - FastAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"secret123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/register/",
+          "host": ["{{base_url}}"],
+          "path": ["api","auth","register",""]
+        }
+      }
+    },
+    {
+      "name": "Auth - Token",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/x-www-form-urlencoded"}],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {"key":"username","value":"alice"},
+            {"key":"password","value":"secret123"}
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/token/",
+          "host": ["{{base_url}}"],
+          "path": ["api","auth","token",""]
+        }
+      }
+    },
+    {
+      "name": "Posts - Create",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Authorization","value":"Bearer {{access_token}}"},{"key":"Content-Type","value":"application/json"}],
+        "body": {"mode":"raw","raw":"{\n  \"text\": \"Hello world!\"\n}"},
+        "url": {"raw":"{{base_url}}/api/posts/","host":["{{base_url}}"],"path":["api","posts",""]}
+      }
+    },
+    {
+      "name": "Posts - List",
+      "request": {"method":"GET","url":{"raw":"{{base_url}}/api/posts/","host":["{{base_url"]},"path":["api","posts",""]}}
+    }
+  ]
+}
