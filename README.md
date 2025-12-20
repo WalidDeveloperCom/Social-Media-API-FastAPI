@@ -143,7 +143,7 @@ Follows
 
 ### Containers Used
 
-* **FastAPI App** (Uvicorn/Gunicorn)
+* **FastAPI App** (Uvicorn)
 * **PostgreSQL**
 * **Redis**
 * **Elasticsearch**
