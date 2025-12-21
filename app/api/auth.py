@@ -3,14 +3,13 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from datetime import timedelta
-import logging
-
 from app.schemas.user_schema import UserCreate, UserInDB, Token
 from app.schemas.auth_schema import LoginRequest
 from app.services.auth_service import AuthService
 from app.services.user_service import UserService
 from app.db.session import get_db
 from app.config import settings
+import logging
 
 logger = logging.getLogger(__name__)
 
