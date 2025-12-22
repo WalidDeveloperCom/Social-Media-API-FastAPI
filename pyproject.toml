@@ -1,6 +1,19 @@
-[project]
-name = "social-media-api-fastapi"
-version = "0.1.0"
-description = "Add your description here"
-requires-python = ">=3.12"
-dependencies = []
+# setup.py (if using setuptools)
+from setuptools import setup, find_packages
+
+setup(
+    name="social_api",
+    version="1.0.0",
+    packages=find_packages(),
+    install_requires=[
+        # your dependencies
+    ],
+    entry_points={
+        'console_scripts': [
+            'social-migrate=scripts.migrate:main',
+            'social-db-init=scripts.db_init:main',
+            'social-seed-data=scripts.seed_data:main',
+            'social-backup-db=scripts.backup_db:main',
+        ],
+    },
+)
