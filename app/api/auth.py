@@ -1,15 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
 from datetime import timedelta
+import logging
+
 from app.schemas.user_schema import UserCreate, UserInDB, Token
-from app.schemas.auth_schema import LoginRequest
 from app.services.auth_service import AuthService
-from app.services.user_service import UserService
+# Don't import UserService here to avoid circular imports
 from app.db.session import get_db
 from app.config import settings
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +22,9 @@ async def register(
 ):
     """Register a new user"""
     try:
+        # Import UserService locally to avoid circular imports
+        from app.services.user_service import UserService
+        
         user_service = UserService(db)
         auth_service = AuthService(db)
         
@@ -41,7 +43,7 @@ async def register(
                 detail="Username already taken"
             )
         
-        # Create user
+        # Create user using auth_service
         user = await auth_service.create_user(user_data)
         return user
     except HTTPException:
@@ -52,6 +54,8 @@ async def register(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Registration failed"
         )
+
+# ... rest of the auth.py file ...
 
 @router.post("/login", response_model=Token)
 async def login(

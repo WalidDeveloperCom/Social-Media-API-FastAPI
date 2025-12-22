@@ -15,12 +15,14 @@ class Settings(BaseSettings):
     PORT: int = 8000
     
     # Database
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:password@localhost:5432/social_db"
+    #DATABASE_URL: str = "postgresql+asyncpg://postgres:password@localhost:5432/social_db"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./db.sqlite3"
+    UPLOAD_DIR: str = "./uploads"
     DATABASE_POOL_SIZE: int = 20
     DATABASE_MAX_OVERFLOW: int = 40
     
     # SQLite for testing
-    TEST_DATABASE_URL: str = "sqlite+aiosqlite:///./test.db"
+    TEST_DATABASE_URL: str = "sqlite+aiosqlite:///./db.sqlite3"
     
     # Redis
     REDIS_URL: str = "redis://localhost:6379"

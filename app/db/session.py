@@ -6,7 +6,7 @@ from typing import AsyncGenerator
 import logging
 
 logger = logging.getLogger(__name__)
-
+from app.db.base import Base
 # Get database URL based on environment
 database_url = settings.database_url
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Text, DateTime, Integer
+from sqlalchemy import Column, String, Boolean, Text, DateTime, Integer, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.models.base import BaseModel
@@ -50,4 +50,10 @@ class User(BaseModel):
         "Notification",
         foreign_keys="Notification.receiver_id",
         back_populates="receiver"
+    )
+    
+    # Additional indexes
+    __table_args__ = (
+        Index('ix_users_created_at', 'created_at'),
+        Index('ix_users_followers_count', 'followers_count'),
     )
