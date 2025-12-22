@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, Boolean, Text, DateTime, Integer
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.models.base import BaseModel
-import uuid
 
 class User(BaseModel):
     __tablename__ = "users"
@@ -16,6 +15,11 @@ class User(BaseModel):
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
     last_login = Column(DateTime)
+    
+    # Denormalized counts for performance
+    followers_count = Column(Integer, default=0, nullable=False)
+    following_count = Column(Integer, default=0, nullable=False)
+    posts_count = Column(Integer, default=0, nullable=False)
     
     # Relationships
     posts = relationship("Post", back_populates="user", cascade="all, delete-orphan")

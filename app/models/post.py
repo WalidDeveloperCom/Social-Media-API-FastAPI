@@ -18,7 +18,15 @@ class Post(BaseModel):
     comments = relationship("Comment", back_populates="post", cascade="all, delete-orphan")
     likes = relationship("Like", back_populates="post", cascade="all, delete-orphan")
     
-    # Statistics (can be denormalized for performance)
-    like_count = Column(Integer, default=0)
-    comment_count = Column(Integer, default=0)
-    share_count = Column(Integer, default=0)
+    # Denormalized counts for performance
+    like_count = Column(Integer, default=0, nullable=False)
+    comment_count = Column(Integer, default=0, nullable=False)
+    share_count = Column(Integer, default=0, nullable=False)
+    
+    # Indexes for better performance
+    __table_args__ = (
+        Index('ix_posts_user_id', 'user_id'),
+        Index('ix_posts_created_at', 'created_at'),
+        Index('ix_posts_is_public', 'is_public'),
+        Index('ix_posts_like_count', 'like_count'),
+    )
